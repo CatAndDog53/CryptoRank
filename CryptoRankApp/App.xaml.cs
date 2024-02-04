@@ -16,7 +16,10 @@ namespace CryptoRankApp
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
+            containerRegistry.RegisterForNavigation<CurrenciesAreaView>();
+            containerRegistry.RegisterForNavigation<TopCurrenciesView>();
+            containerRegistry.RegisterForNavigation<DetailsView>();
+            containerRegistry.RegisterForNavigation<ConverterView>();
         }
     }
 
