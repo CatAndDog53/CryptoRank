@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoRankApp", "CryptoRankApp\CryptoRankApp.csproj", "{D2172F12-0899-4E09-9F81-8BC6E903A7AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoRankApp", "CryptoRankApp\CryptoRankApp.csproj", "{D2172F12-0899-4E09-9F81-8BC6E903A7AF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{94E02243-DA5C-4F25-896D-15A1B8B64C4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{ED1B4719-7B18-4A4C-B7D0-E1A6545DD26F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{D2172F12-0899-4E09-9F81-8BC6E903A7AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2172F12-0899-4E09-9F81-8BC6E903A7AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2172F12-0899-4E09-9F81-8BC6E903A7AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94E02243-DA5C-4F25-896D-15A1B8B64C4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94E02243-DA5C-4F25-896D-15A1B8B64C4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94E02243-DA5C-4F25-896D-15A1B8B64C4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94E02243-DA5C-4F25-896D-15A1B8B64C4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED1B4719-7B18-4A4C-B7D0-E1A6545DD26F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED1B4719-7B18-4A4C-B7D0-E1A6545DD26F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED1B4719-7B18-4A4C-B7D0-E1A6545DD26F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED1B4719-7B18-4A4C-B7D0-E1A6545DD26F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
