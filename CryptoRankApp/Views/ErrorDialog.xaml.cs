@@ -13,26 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CryptoRankApp.Views
+namespace CryptoRankApp.Views.Components
 {
     /// <summary>
-    /// Interaction logic for TopCurrenciesView.xaml
+    /// Interaction logic for ErrorDialog.xaml
     /// </summary>
-    public partial class TopCurrenciesView : UserControl
+    public partial class ErrorDialog : UserControl
     {
-        public TopCurrenciesView()
+        public ErrorDialog()
         {
             InitializeComponent();
-        }
-
-        private void Row_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            e.Handled = true;
-        }
-
-        private void Row_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            e.Handled = true;
         }
     }
 }

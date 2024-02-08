@@ -1,6 +1,10 @@
 ﻿using Prism.Ioc;
 using System.Windows;
 using CryptoRankApp.Views;
+using Infrastructure.Interfaces;
+using Infrastructure;
+using CryptoRankApp.ViewModels;
+using CryptoRankApp.Views.Components;
 
 namespace CryptoRankApp
 {
@@ -20,7 +24,12 @@ namespace CryptoRankApp
             containerRegistry.RegisterForNavigation<TopCurrenciesView>();
             containerRegistry.RegisterForNavigation<DetailsView>();
             containerRegistry.RegisterForNavigation<ConverterView>();
+
+            containerRegistry.RegisterDialog<ErrorDialog, ErrorDialogViewModel>();
+
+
+            containerRegistry.Register<IApiService, ApiService>();
+            containerRegistry.Register<ICoinService, CoinGeckoService>();
         }
     }
-
 }

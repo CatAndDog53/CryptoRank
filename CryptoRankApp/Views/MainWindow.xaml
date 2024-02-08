@@ -3,23 +3,86 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://prismlibrary.com/"
         xmlns:local="clr-namespace:CryptoRankApp"
+        xmlns:extensions="clr-namespace:CryptoRankApp.Extensions"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="{Binding Title}" Height="350" Width="525" >
+        Title="{Binding Title}" 
+        Height="720" Width="1280" 
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="15"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
 
-    <DockPanel LastChildFill="True">
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="5" >
-            <Button Content="Currencies"
-                    Command="{Binding NavigateCommand}" 
-                    CommandParameter="CurrenciesAreaView" 
-                    Margin="5">
-            </Button>
-            <Button 
-                Content="Converter"
-                Command="{Binding NavigateCommand}" 
-                CommandParameter="ConverterView" 
-                Margin="5">
-            </Button>
-        </StackPanel>
-        <ContentControl prism:RegionManager.RegionName="{x:Static local:RegionNames.MainContentRegion}" Margin="5"  />
-    </DockPanel>
+    <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
+                  extensions:ScrollViewerExtensions.ResetScroll="{Binding ScrollToTopTrigger}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <DockPanel>
+                <materialDesign:ColorZone Padding="10"
+                                          materialDesign:ElevationAssist.Elevation="Dp2"
+                                          DockPanel.Dock="Top"
+                                          Mode="PrimaryMid">
+                    <DockPanel>
+                        <StackPanel Orientation="Horizontal" Margin="35,0,0,0">
+                            <Label Margin="0,0,0,0" Content="{materialDesign:PackIcon Kind=Bitcoin, Size=60}"
+                                   Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"></Label>
+                            <Button materialDesign:RippleAssist.Feedback="{Binding RelativeSource={RelativeSource Self}, Path=Foreground, Converter={StaticResource BrushRoundConverter}}"
+                                    Content="Crypto Rank"
+                                    FontSize="36"
+                                    Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
+                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                    Command="{Binding NavigateCommand}" 
+                                    CommandParameter="CurrenciesAreaView" 
+                                    Margin="0,0,0,0"
+                                    MinHeight="50">
+                            </Button>
+                            <Button materialDesign:RippleAssist.Feedback="{Binding RelativeSource={RelativeSource Self}, Path=Foreground, Converter={StaticResource BrushRoundConverter}}"
+                                    Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
+                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                    Content="Currencies"
+                                    Command="{Binding NavigateCommand}" 
+                                    CommandParameter="CurrenciesAreaView" 
+                                    Margin="15,10,0,0"
+                                    FontSize="18">
+                            </Button>
+                            <Button materialDesign:RippleAssist.Feedback="{Binding RelativeSource={RelativeSource Self}, Path=Foreground, Converter={StaticResource BrushRoundConverter}}"
+                                    Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
+                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                    Content="Converter"
+                                    Command="{Binding NavigateCommand}" 
+                                    CommandParameter="ConverterView" 
+                                    Margin="15,10,0,0"
+                                    FontSize="18">
+                            </Button>
+                            
+                        </StackPanel>
+                        <Grid DockPanel.Dock="Right">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button Grid.Column="1"
+                                    materialDesign:RippleAssist.Feedback="{Binding RelativeSource={RelativeSource Self}, Path=Foreground, Converter={StaticResource BrushRoundConverter}}"
+                                    Style="{StaticResource MaterialDesignToolButton}"
+                                    Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
+                                    Content="{materialDesign:PackIcon Kind=WeatherSunny, Size=27}"
+                                    Command="{Binding ChangeThemeCommand}" 
+                                    Margin="10,0,25,0">
+                            </Button>
+                        </Grid>
+                    </DockPanel>
+                </materialDesign:ColorZone>
+            </DockPanel>
+            
+            <ContentControl prism:RegionManager.RegionName="{x:Static local:RegionNames.MainContentRegion}" 
+                            Grid.Row="1"  />
+        </Grid>
+    </ScrollViewer>
 </Window>

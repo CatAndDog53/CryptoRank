@@ -1,18 +1,10 @@
 ﻿using Infrastructure.Interfaces;
-using System.Net.Http;
 using System.Text.Json;
 
 namespace Infrastructure
 {
     public class ApiService : IApiService
     {
-        //private readonly HttpClient _httpClient;
-
-        public ApiService(/*HttpClient httpClient*/)
-        {
-            //_httpClient = httpClient;
-        }
-
         public async Task<T> GetAsync<T>(Uri uri)
         {
             HttpClient httpClient = new HttpClient();

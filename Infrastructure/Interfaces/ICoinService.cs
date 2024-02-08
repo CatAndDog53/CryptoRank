@@ -6,5 +6,6 @@ namespace Infrastructure.Interfaces
     {
         Task<IList<CoinMarketData>> GetCoinMarketDataAsync(string vsCurrency, string? order, int? perPage,
         int? page, bool? sparkline, string? priceChangePercentage);
+        Task<IList<CoinShortData>> GetCoinListAsync();
     }
 }

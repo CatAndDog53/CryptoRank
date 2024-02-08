@@ -8,8 +8,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <StackPanel>
-            <ContentControl prism:RegionManager.RegionName="{x:Static local:RegionNames.CurrenciesContentRegion}" Margin="5"  />
-        </StackPanel>
+        <ContentControl prism:RegionManager.RegionName="{x:Static local:RegionNames.CurrenciesContentRegion}" Margin="5"  />
     </Grid>
 </UserControl>

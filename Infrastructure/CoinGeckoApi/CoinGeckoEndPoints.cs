@@ -1,5 +1,4 @@
-﻿
-namespace Infrastructure.CoinGeckoApi
+﻿namespace Infrastructure.CoinGeckoApi
 {
     public static class CoinGeckoEndPoints
     {

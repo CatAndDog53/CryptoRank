@@ -13,7 +13,7 @@ namespace Infrastructure
                 throw new ArgumentNullException(nameof(parameters));
 
             var queryString = string.Join("&", parameters.Select(param => 
-            $"{Uri.EscapeDataString(param.Key)}={Uri.EscapeDataString(Convert.ToString(param.Value))}"));
+            $"{Uri.EscapeDataString(param.Key)}={Uri.EscapeDataString(Convert.ToString(param.Value).ToLower())}"));
 
             string? url = queryString.Length > 0 ? $"{baseUri}?{queryString}" : baseUri.OriginalString;
 

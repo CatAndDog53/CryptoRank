@@ -9,13 +9,14 @@
     <Grid>
         <StackPanel>
             <TextBox FontSize="12" 
-             TextWrapping="Wrap"
-             Text="Its Details View \n here you can see currency details.">
+                     TextWrapping="Wrap"
+                     Text="Its Details View \n here you can see currency details.">
             </TextBox>
             <Button VerticalAlignment="Top" 
-            HorizontalAlignment="Center" 
-            Content="Back"
-            Command="{Binding NavigateCommand}" CommandParameter="TopCurrenciesView">
+                    HorizontalAlignment="Center" 
+                    Content="Back"
+                    Command="{Binding NavigateCommand}" 
+                    CommandParameter="TopCurrenciesView">
             </Button>
         </StackPanel>
     </Grid>

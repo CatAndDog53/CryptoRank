@@ -1,5 +1,4 @@
-﻿
-using Infrastructure.CoinGeckoApi;
+﻿using Infrastructure.CoinGeckoApi;
 using Infrastructure.Interfaces;
 using Models;
 
@@ -27,6 +26,11 @@ namespace Infrastructure
                 {"sparkline", sparkline},
                 {"price_change_percentage", priceChangePercentage},
             })).ConfigureAwait(false);
+        }
+
+        public async Task<IList<CoinShortData>> GetCoinListAsync()
+        {
+            return await _apiService.GetAsync<List<CoinShortData>>(CoinGeckoEndPoints.CoinsList).ConfigureAwait(false);
         }
     }
 }

@@ -5,19 +5,178 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:prism="http://prismlibrary.com/"
              xmlns:local="clr-namespace:CryptoRankApp.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converters="clr-namespace:CryptoRankApp.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <converters:DecimalToCurrencyConverter x:Key="DecimalToCurrencyConverter"/>
+        <converters:SparklineToBrushConverter x:Key="SparklineToBrushConverter" />
+        <converters:SparklineToSvgConverter x:Key="SparklineToSvgConverter" />
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Margin" Value="10,10,10,10" />
+            <Setter Property="Padding" Value="0"/>
+            <EventSetter Event="PreviewMouseRightButtonDown" Handler="Row_PreviewMouseRightButtonDown"/>
+        </Style>
+        <Style TargetType="DataGridRow">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource MaterialDesignBackground}"/>
+                </Trigger>
+            </Style.Triggers>
+            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="Row_PreviewMouseLeftButtonDown"/>
+            <EventSetter Event="PreviewMouseRightButtonDown" Handler="Row_PreviewMouseRightButtonDown"/>
+            <Setter Property="Background" Value="{DynamicResource MaterialDesignPaper}" />
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
-        <StackPanel>
-            <TextBox FontSize="12" 
-                     TextWrapping="Wrap"
-                     Text="Top Currencies View">
-            </TextBox>
-            <Button VerticalAlignment="Top" 
-                    HorizontalAlignment="Center" 
-                    Content="Open Details"
-                    Command="{Binding NavigateCommand}" CommandParameter="DetailsView">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+        <Grid DockPanel.Dock="Right">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+
+
+            <ComboBox Grid.Column="1"
+                      IsEditable="True"
+                      StaysOpenOnEdit="True" 
+                      ItemsSource="{Binding AllCoinsShortData}"
+                      DisplayMemberPath="Name"
+                      Foreground="Gray"
+                      FontSize="16"
+                      MinWidth="200"
+                      SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+            </ComboBox>
+            <Label Grid.Column="2"
+                   Content="{materialDesign:PackIcon Kind=Magnify, Size=24}" />
+            <Button Grid.Column="3" 
+                    Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
+                    Content="{materialDesign:PackIcon Kind=Reload,
+                    Size=24}"
+                    Command="{Binding LoadCoinsCommand}"
+                    Style="{DynamicResource MaterialDesignFlatButton}">
             </Button>
-        </StackPanel>
+        </Grid>
+
+        <DataGrid Grid.Row="1"
+                  x:Name="CryptoDataGrid"
+                  ItemsSource="{Binding CurrentPageCoinMarketData}"
+                  Style="{DynamicResource MaterialDesignDataGrid}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  HorizontalGridLinesBrush="Transparent"
+                  GridLinesVisibility="None">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="#" Binding="{Binding MarketCapRank}" />
+                <DataGridTemplateColumn Header="COIN">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="0,0,35,0">
+                                <Image Source="{Binding Image}" Width="27" Height="27" />
+                                <StackPanel Orientation="Vertical"
+                                            Margin="5,0,0,0">
+                                    <TextBlock Text="{Binding Name}"
+                                   Margin="5,0,0,0" 
+                                   HorizontalAlignment="Center"
+                                   FontWeight="Bold"
+                                   FontSize="15"/>
+                                    <TextBlock Text="{Binding Symbol}"
+                                   Margin="5,0,0,0" 
+                                   FontSize="15"
+                                   Foreground="Gray"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="PRICE" Binding="{Binding CurrentPrice}" />
+                <DataGridTextColumn Header="24H CHANGE" Binding="{Binding PriceChangePercentage24h}" />
+                <DataGridTextColumn Header="MARKET CAP" Binding="{Binding MarketCap}" />
+                <DataGridTemplateColumn Header="SPARKLINE">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,0,0,0" VerticalAlignment="Bottom">
+                                <Path
+                                StrokeEndLineCap="Round"
+                                StrokeLineJoin="Bevel"
+                                HorizontalAlignment="Center"
+                                Stroke="{Binding Path=., Converter={StaticResource SparklineToBrushConverter}}"
+                                StrokeThickness="1.5"
+                                Data="{Binding Path=., Converter={StaticResource SparklineToSvgConverter}}">
+                                </Path>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Details">
+                    <DataGridTemplateColumn.CellTemplate >
+                        <DataTemplate>
+                            <Button Content="Open"
+                                    Command="{Binding NavigateToDetailsCommand}" 
+                                    CommandParameter="{Binding Id}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <WrapPanel Grid.Row="3"
+                   VerticalAlignment="Top"
+                   Margin="0,0,0,10"
+                   HorizontalAlignment="Center">
+            <Button Command="{Binding ChangePageCommand}"
+                    CommandParameter="-1"
+                    Width="100"
+                    Padding="0,10"
+                    IsEnabled="{Binding IsPreviousPageAvailable}">
+                <StackPanel Orientation="Horizontal" 
+                            VerticalAlignment="Center">
+                    <TextBlock Text="←" 
+                               FontSize="16" 
+                               VerticalAlignment="Center"/>
+                    <TextBlock Text="Previous" 
+                               FontWeight="Medium" 
+                               FontSize="13" 
+                               Margin="6,0,0,0" 
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <TextBlock Margin="18,0,20,0" 
+                       FontSize="14" 
+                       FontWeight="SemiBold" 
+                       VerticalAlignment="Center">
+                Page <Run Text="{Binding CurrentPage}"/>
+            </TextBlock>
+            <Button Command="{Binding ChangePageCommand}"
+                    CommandParameter="1"
+                    Width="80"
+                    Padding="0,8">
+                <StackPanel Orientation="Horizontal" 
+                            VerticalAlignment="Center">
+                    <TextBlock Text="Next" 
+                               FontWeight="Medium" 
+                               FontSize="13" 
+                               VerticalAlignment="Center"/>
+                    <TextBlock Text="→" 
+                               FontSize="16" 
+                               Margin="6,3,0,3" 
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </WrapPanel>
     </Grid>
 </UserControl>
